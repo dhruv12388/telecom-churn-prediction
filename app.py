@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import joblib
 
 # 1. Load the "Brain" we saved earlier
-with open('customer_ai.pkl', 'rb') as f:
-    model = pickle.load(f)
-
+model = joblib.load('customer_ai.pkl')
 # 2. Setup the Website Title
 st.title("📊 Telecom Customer Churn Predictor")
 st.write("Enter customer details below to see if they are likely to leave.")
@@ -31,5 +30,6 @@ if st.button("Predict Risk"):
         st.error(f"⚠️ High Risk! Probability of leaving: {probability:.2%}")
     else:
         st.success(f"✅ Low Risk. Probability of leaving: {probability:.2%}")
+
 
 st.info("This AI uses the XGBoost model saved in your customer_ai.pkl file.")
